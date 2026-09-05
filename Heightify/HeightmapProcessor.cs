@@ -3,6 +3,7 @@ using OpenCvSharp.Extensions;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace Heightify
 {
@@ -190,5 +191,46 @@ namespace Heightify
 
         private static InvalidOperationException forensicsInvalidOperationException(string message) => new InvalidOperationException(message);
 
+        public Bitmap GenerateEdgeHeightmap(string imagePath)
+        {
+            if (string.IsNullOrWhiteSpace(imagePath))
+                throw new ArgumentException("Image path cannot be null or empty.", nameof(imagePath));
+
+            using (Mat source = Cv2.ImRead(imagePath, ImreadModes.Grayscale))
+            {
+                if (source.Empty())
+                    throw new InvalidOperationException("Failed to load source image file.");
+
+                using (Mat blurred = new Mat())
+                using (Mat gx = new Mat())
+                using (Mat gy = new Mat())
+                using (Mat magnitude = new Mat())
+                using (Mat normalized = new Mat())
+                using (Mat inverted = new Mat())
+                {
+                    // 1. noise reduction via Gaussian filter
+                    Cv2.GaussianBlur(source, blurred, new OpenCvSharp.Size(3, 3), sigmaX: 0);
+
+                    // 2. spatial gradients using Sobel operator 
+                    Cv2.Sobel(blurred, gx, MatType.CV_32F, 1, 0, ksize: 3);
+                    Cv2.Sobel(blurred, gy, MatType.CV_32F, 0, 1, ksize: 3);
+
+                    // 3. compute vector gradient magnitude sqrt(Gx^2 + Gy^2)
+                    Cv2.Magnitude(gx, gy, magnitude);
+
+                    // 4. normalize to dynamic range [0, 255] and quantize to 8-bit unsigned
+                    Cv2.Normalize(magnitude, normalized, 0, 255, NormTypes.MinMax);
+                    normalized.ConvertTo(normalized, MatType.CV_8U);
+
+                    Cv2.BitwiseNot(normalized, inverted);
+
+                    Cv2.ImEncode(".png", inverted, out byte[] buffer);
+                    using (var memoryStream = new MemoryStream(buffer))
+                    {
+                        return new Bitmap(memoryStream);
+                    }
+                }
+            }
+        }
     }
 }
