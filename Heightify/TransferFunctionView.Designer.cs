@@ -49,9 +49,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(9, 10);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(788, 615);
+            this.pictureBox1.Size = new System.Drawing.Size(591, 500);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
@@ -71,9 +72,10 @@
             this.guna2Button2.HoverState.ForeColor = System.Drawing.Color.White;
             this.guna2Button2.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.guna2Button2.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button2.Location = new System.Drawing.Point(818, 582);
+            this.guna2Button2.Location = new System.Drawing.Point(614, 473);
+            this.guna2Button2.Margin = new System.Windows.Forms.Padding(2);
             this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.Size = new System.Drawing.Size(175, 45);
+            this.guna2Button2.Size = new System.Drawing.Size(131, 37);
             this.guna2Button2.TabIndex = 8;
             this.guna2Button2.Text = "Load Image:";
             this.guna2Button2.Click += new System.EventHandler(this.LoadButton_Click);
@@ -88,9 +90,10 @@
             this.radioButtonLogarithmic.CheckedState.InnerOffset = -4;
             this.radioButtonLogarithmic.Font = new System.Drawing.Font("Segoe UI Light", 12F);
             this.radioButtonLogarithmic.ForeColor = System.Drawing.Color.White;
-            this.radioButtonLogarithmic.Location = new System.Drawing.Point(866, 55);
+            this.radioButtonLogarithmic.Location = new System.Drawing.Point(650, 45);
+            this.radioButtonLogarithmic.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonLogarithmic.Name = "radioButtonLogarithmic";
-            this.radioButtonLogarithmic.Size = new System.Drawing.Size(69, 32);
+            this.radioButtonLogarithmic.Size = new System.Drawing.Size(57, 25);
             this.radioButtonLogarithmic.TabIndex = 17;
             this.radioButtonLogarithmic.Text = "LOG";
             this.radioButtonLogarithmic.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -108,9 +111,10 @@
             this.radioButtonLinear.CheckedState.InnerOffset = -4;
             this.radioButtonLinear.Font = new System.Drawing.Font("Segoe UI Light", 12F);
             this.radioButtonLinear.ForeColor = System.Drawing.Color.White;
-            this.radioButtonLinear.Location = new System.Drawing.Point(854, 141);
+            this.radioButtonLinear.Location = new System.Drawing.Point(640, 115);
+            this.radioButtonLinear.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonLinear.Name = "radioButtonLinear";
-            this.radioButtonLinear.Size = new System.Drawing.Size(95, 32);
+            this.radioButtonLinear.Size = new System.Drawing.Size(77, 25);
             this.radioButtonLinear.TabIndex = 18;
             this.radioButtonLinear.Text = "LINEAR";
             this.radioButtonLinear.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -128,9 +132,10 @@
             this.radioButtonPolynomial.CheckedState.InnerOffset = -4;
             this.radioButtonPolynomial.Font = new System.Drawing.Font("Segoe UI Light", 12F);
             this.radioButtonPolynomial.ForeColor = System.Drawing.Color.White;
-            this.radioButtonPolynomial.Location = new System.Drawing.Point(843, 193);
+            this.radioButtonPolynomial.Location = new System.Drawing.Point(632, 157);
+            this.radioButtonPolynomial.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonPolynomial.Name = "radioButtonPolynomial";
-            this.radioButtonPolynomial.Size = new System.Drawing.Size(123, 32);
+            this.radioButtonPolynomial.Size = new System.Drawing.Size(99, 25);
             this.radioButtonPolynomial.TabIndex = 19;
             this.radioButtonPolynomial.Text = "POLYNOM";
             this.radioButtonPolynomial.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -148,9 +153,10 @@
             this.radioButtonExponential.CheckedState.InnerOffset = -4;
             this.radioButtonExponential.Font = new System.Drawing.Font("Segoe UI Light", 12F);
             this.radioButtonExponential.ForeColor = System.Drawing.Color.White;
-            this.radioButtonExponential.Location = new System.Drawing.Point(843, 348);
+            this.radioButtonExponential.Location = new System.Drawing.Point(632, 283);
+            this.radioButtonExponential.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonExponential.Name = "radioButtonExponential";
-            this.radioButtonExponential.Size = new System.Drawing.Size(128, 32);
+            this.radioButtonExponential.Size = new System.Drawing.Size(104, 25);
             this.radioButtonExponential.TabIndex = 20;
             this.radioButtonExponential.Text = "EXPONENT";
             this.radioButtonExponential.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -164,9 +170,10 @@
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
             this.label1.Font = new System.Drawing.Font("Segoe UI Light", 10F);
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(843, 232);
+            this.label1.Location = new System.Drawing.Point(632, 188);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(22, 23);
+            this.label1.Size = new System.Drawing.Size(19, 19);
             this.label1.TabIndex = 21;
             this.label1.Text = "a:";
             // 
@@ -182,13 +189,13 @@
             this.guna2TextBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2TextBox1.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox1.Location = new System.Drawing.Point(866, 232);
-            this.guna2TextBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2TextBox1.Location = new System.Drawing.Point(650, 188);
+            this.guna2TextBox1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.guna2TextBox1.Name = "guna2TextBox1";
             this.guna2TextBox1.PasswordChar = '\0';
             this.guna2TextBox1.PlaceholderText = "";
             this.guna2TextBox1.SelectedText = "";
-            this.guna2TextBox1.Size = new System.Drawing.Size(83, 23);
+            this.guna2TextBox1.Size = new System.Drawing.Size(62, 19);
             this.guna2TextBox1.TabIndex = 22;
             // 
             // guna2TextBox2
@@ -203,13 +210,13 @@
             this.guna2TextBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2TextBox2.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox2.Location = new System.Drawing.Point(866, 263);
-            this.guna2TextBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2TextBox2.Location = new System.Drawing.Point(650, 214);
+            this.guna2TextBox2.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.guna2TextBox2.Name = "guna2TextBox2";
             this.guna2TextBox2.PasswordChar = '\0';
             this.guna2TextBox2.PlaceholderText = "";
             this.guna2TextBox2.SelectedText = "";
-            this.guna2TextBox2.Size = new System.Drawing.Size(83, 23);
+            this.guna2TextBox2.Size = new System.Drawing.Size(62, 19);
             this.guna2TextBox2.TabIndex = 24;
             // 
             // label2
@@ -218,9 +225,10 @@
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
             this.label2.Font = new System.Drawing.Font("Segoe UI Light", 10F);
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(843, 263);
+            this.label2.Location = new System.Drawing.Point(632, 214);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 23);
+            this.label2.Size = new System.Drawing.Size(20, 19);
             this.label2.TabIndex = 23;
             this.label2.Text = "b:";
             // 
@@ -236,13 +244,13 @@
             this.guna2TextBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2TextBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox3.Location = new System.Drawing.Point(866, 294);
-            this.guna2TextBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2TextBox3.Location = new System.Drawing.Point(650, 239);
+            this.guna2TextBox3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.guna2TextBox3.Name = "guna2TextBox3";
             this.guna2TextBox3.PasswordChar = '\0';
             this.guna2TextBox3.PlaceholderText = "";
             this.guna2TextBox3.SelectedText = "";
-            this.guna2TextBox3.Size = new System.Drawing.Size(83, 23);
+            this.guna2TextBox3.Size = new System.Drawing.Size(62, 19);
             this.guna2TextBox3.TabIndex = 26;
             // 
             // label3
@@ -251,9 +259,10 @@
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
             this.label3.Font = new System.Drawing.Font("Segoe UI Light", 10F);
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(843, 294);
+            this.label3.Location = new System.Drawing.Point(632, 239);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(22, 23);
+            this.label3.Size = new System.Drawing.Size(18, 19);
             this.label3.TabIndex = 25;
             this.label3.Text = "c:";
             // 
@@ -269,13 +278,13 @@
             this.guna2TextBox4.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2TextBox4.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox4.Location = new System.Drawing.Point(866, 94);
-            this.guna2TextBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2TextBox4.Location = new System.Drawing.Point(650, 76);
+            this.guna2TextBox4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.guna2TextBox4.Name = "guna2TextBox4";
             this.guna2TextBox4.PasswordChar = '\0';
             this.guna2TextBox4.PlaceholderText = "";
             this.guna2TextBox4.SelectedText = "";
-            this.guna2TextBox4.Size = new System.Drawing.Size(83, 23);
+            this.guna2TextBox4.Size = new System.Drawing.Size(62, 19);
             this.guna2TextBox4.TabIndex = 28;
             // 
             // label4
@@ -284,9 +293,10 @@
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
             this.label4.Font = new System.Drawing.Font("Segoe UI Light", 10F);
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(812, 94);
+            this.label4.Location = new System.Drawing.Point(609, 76);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 23);
+            this.label4.Size = new System.Drawing.Size(39, 19);
             this.label4.TabIndex = 27;
             this.label4.Text = "base:";
             // 
@@ -302,13 +312,13 @@
             this.guna2TextBox6.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.guna2TextBox6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2TextBox6.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox6.Location = new System.Drawing.Point(866, 387);
-            this.guna2TextBox6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2TextBox6.Location = new System.Drawing.Point(650, 314);
+            this.guna2TextBox6.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.guna2TextBox6.Name = "guna2TextBox6";
             this.guna2TextBox6.PasswordChar = '\0';
             this.guna2TextBox6.PlaceholderText = "";
             this.guna2TextBox6.SelectedText = "";
-            this.guna2TextBox6.Size = new System.Drawing.Size(83, 23);
+            this.guna2TextBox6.Size = new System.Drawing.Size(62, 19);
             this.guna2TextBox6.TabIndex = 32;
             // 
             // label6
@@ -317,18 +327,19 @@
             this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
             this.label6.Font = new System.Drawing.Font("Segoe UI Light", 10F);
             this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(820, 387);
+            this.label6.Location = new System.Drawing.Point(615, 314);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 23);
+            this.label6.Size = new System.Drawing.Size(33, 19);
             this.label6.TabIndex = 31;
             this.label6.Text = "exp:";
             // 
-            // Form6
+            // TransferFunctionView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(23)))));
-            this.ClientSize = new System.Drawing.Size(1010, 639);
+            this.ClientSize = new System.Drawing.Size(758, 519);
             this.Controls.Add(this.guna2TextBox6);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.pictureBox1);
@@ -346,7 +357,8 @@
             this.Controls.Add(this.radioButtonLogarithmic);
             this.Controls.Add(this.guna2Button2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form6";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "TransferFunctionView";
             this.Text = "Form6";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

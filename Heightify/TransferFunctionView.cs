@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing.Imaging;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Heightify
 {
     public partial class TransferFunctionView : Form
     {
-        private Func<double, double> selectedFunction;
+        private Func<double, double> _selectedFunction;
+        private Bitmap _currentBitmap;
 
         public TransferFunctionView()
         {
@@ -26,140 +23,112 @@ namespace Heightify
             radioButtonLinear.CheckedChanged += RadioButton_CheckedChanged;
             radioButtonPolynomial.CheckedChanged += RadioButton_CheckedChanged;
             radioButtonExponential.CheckedChanged += RadioButton_CheckedChanged;
+
+            // Set default function to prevent null reference issues
+            radioButtonLinear.Checked = true;
+            _selectedFunction = LinearFunction;
         }
 
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            RadioButton radioButton = sender as RadioButton;
-            if (radioButton != null && radioButton.Checked)
+            if (sender is RadioButton radioButton && radioButton.Checked)
             {
-                selectedFunction = GetFunctionForRadioButton(radioButton);
+                _selectedFunction = ResolveSelectedTransferFunction(radioButton.Name);
             }
         }
 
-        private Func<double, double> GetFunctionForRadioButton(RadioButton radioButton)
+        /// <summary>
+        /// Builds the transfer function delegate, caching UI parameters beforehand
+        /// to avoid expensive UI thread queries inside the inner pixel loop.
+        /// </summary>
+        private Func<double, double> ResolveSelectedTransferFunction(string radioButtonName)
         {
-            switch (radioButton.Name)
+            var culture = CultureInfo.InvariantCulture;
+
+            switch (radioButtonName)
             {
                 case "radioButtonLogarithmic":
-                    return LogarithmicFunction;
+                    double logBase = double.TryParse(guna2TextBox4.Text, NumberStyles.Float, culture, out double parsedBase) && parsedBase > 1.0
+                        ? parsedBase
+                        : 2.0;
+                    return intensity => Math.Min(Math.Max(Math.Log(intensity + 1.0, logBase), 0.0), 1.0);
+
                 case "radioButtonLinear":
                     return LinearFunction;
+
                 case "radioButtonPolynomial":
-                    return PolynomialFunction;
+                    // Cache polynomial coefficients once
+                    double.TryParse(guna2TextBox1.Text, NumberStyles.Float, culture, out double a);
+                    double.TryParse(guna2TextBox2.Text, NumberStyles.Float, culture, out double b);
+                    double.TryParse(guna2TextBox3.Text, NumberStyles.Float, culture, out double c);
+                    return intensity => Math.Min(Math.Max(a * intensity * intensity + b * intensity + c, 0.0), 1.0);
+
                 case "radioButtonExponential":
-                    return ExponentialFunction;
+                    const double baseValue = Math.E;
+                    double.TryParse(guna2TextBox6.Text, NumberStyles.Float, culture, out double exponent);
+                    return intensity => Math.Max(0.0, Math.Min(1.0, Math.Pow(baseValue, intensity * exponent) - 1.0));
+
                 default:
-                    return null;
+                    return LinearFunction;
             }
         }
 
-        // conversion functions
-        private double LogarithmicFunction(double intensity)
-        {
-            double logbase = Convert.ToDouble(guna2TextBox4.Text);
-            return (double)Math.Min(Math.Max(Math.Log(intensity + 1, logbase), 0), 1);
-        }
-
-        private double LinearFunction(double intensity)
-        {
-            return intensity;
-        }
-
-        private double PolynomialFunction(double intensity)
-        {
-            // example of a polynomial function
-            double a = Convert.ToDouble(guna2TextBox1.Text);
-            double b = Convert.ToDouble(guna2TextBox2.Text);
-            double c = Convert.ToDouble(guna2TextBox3.Text);
-            return Math.Min(Math.Max(a * intensity * intensity + b * intensity + c, 0), 1);
-        }
-
-        private double ExponentialFunction(double intensity)
-        {
-            // example of an exponential function
-            double baseValue = 2.71828182846;
-            double exponent = Convert.ToDouble(guna2TextBox6.Text);
-            return Math.Max(0, Math.Min(1, (double)Math.Pow(baseValue, intensity * exponent) - 1));
-        }
+        private static double LinearFunction(double intensity) => intensity;
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
-
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                string inputImagePath = openFileDialog.FileName; // get image path
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+                openFileDialog.Title = "Select Source Heightmap Image";
 
-                // converting an image into a height map
-                HeightMapConverter converter = new HeightMapConverter(selectedFunction);
-                Bitmap inputImage = new Bitmap(inputImagePath);
-                Bitmap heightMap = converter.ConvertToHeightMap(inputImage);
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    // Refresh delegate with the latest parameters from textboxes
+                    _selectedFunction = GetCurrentActiveFunction();
 
-                pictureBox1.Image = heightMap;
+                    var processor = new HeightmapProcessor(_selectedFunction);
 
-                converter.SaveHeightMap(heightMap);
+                    using (Bitmap originalImage = new Bitmap(openFileDialog.FileName))
+                    {
+                        _currentBitmap?.Dispose();
+                        _currentBitmap = processor.ConvertToHeightMap(originalImage);
+                    }
+
+                    pictureBox1.Image = _currentBitmap;
+                }
             }
         }
 
-        // converting an image to a heightmap
-        private class HeightMapConverter
+        private Func<double, double> GetCurrentActiveFunction()
         {
-            private Func<double, double> function;
+            if (radioButtonLogarithmic.Checked) return ResolveSelectedTransferFunction("radioButtonLogarithmic");
+            if (radioButtonPolynomial.Checked) return ResolveSelectedTransferFunction("radioButtonPolynomial");
+            if (radioButtonExponential.Checked) return ResolveSelectedTransferFunction("radioButtonExponential");
+            return LinearFunction;
+        }
 
-            public HeightMapConverter(Func<double, double> function)
+        // Dedicated UI action for saving - decoupled from calculation engine
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            if (_currentBitmap == null)
             {
-                this.function = function;
+                MessageBox.Show("No generated heightmap to save.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-            public Bitmap ConvertToHeightMap(Bitmap inputImage)
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                int width = inputImage.Width;
-                int height = inputImage.Height;
-                Bitmap heightMap = new Bitmap(width, height);
-
-                // go through each pixel of the image
-                for (int y = 0; y < height; y++)
-                {
-                    for (int x = 0; x < width; x++)
-                    {
-                        // get the color
-                        Color pixelColor = inputImage.GetPixel(x, y);
-
-                        // converting to a shade of gray
-                        int grayValue = (int)(pixelColor.R * 0.3 + pixelColor.G * 0.59 + pixelColor.B * 0.11);
-
-                        // the value is in the range from 0 to 255?
-                        grayValue = Math.Max(0, Math.Min(255, grayValue));
-
-                        // get the height value
-                        double heightValue = function(grayValue / 255f);
-
-                        // set the height value for a pixel on the height map
-                        heightMap.SetPixel(x, y, Color.FromArgb((int)(heightValue * 255), (int)(heightValue * 255), (int)(heightValue * 255)));
-                    }
-                }
-
-                return heightMap;
-            }
-
-            public void SaveHeightMap(Bitmap heightMap)
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "PNG files (*.png)|*.png|All files (*.*)|*.*";
-                saveFileDialog.Title = "Select an Image File";
+                saveFileDialog.Title = "Save Processed Heightmap";
                 saveFileDialog.RestoreDirectory = true;
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string outputPath = saveFileDialog.FileName;
-                    heightMap.Save(outputPath);
-                    MessageBox.Show("Карта висот збережена на носії.");
+                    _currentBitmap.Save(saveFileDialog.FileName);
+                    MessageBox.Show("Heightmap successfully saved to storage.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-
         }
-
     }
 }
