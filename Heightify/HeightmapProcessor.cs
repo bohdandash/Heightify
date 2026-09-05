@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -136,5 +138,57 @@ namespace Heightify
 
             return heightMap;
         }
+
+        public Bitmap MixChannelsToHeightmap(string imagePath, double redWeight, double greenWeight, double blueWeight)
+        {
+            if (string.IsNullOrWhiteSpace(imagePath))
+                throw new ArgumentException("Image path cannot be null or empty.", nameof(imagePath));
+
+            using (Mat source = Cv2.ImRead(imagePath, ImreadModes.Color))
+            {
+                if (source.Empty() || source.Channels() != 3)
+                {
+                    throw forensicsInvalidOperationException("Image must be a valid 3-channel color texture.");
+                }
+
+                // split image into BGR planes
+                Mat[] channels = Cv2.Split(source);
+
+                try
+                {
+                    // OpenCV order: [0] = Blue, [1] = Green, [2] = Red
+                    double[] weights = { blueWeight, greenWeight, redWeight };
+
+                    using (Mat weightedSum = new Mat(source.Size(), MatType.CV_32FC1))
+                    using (Mat tempConverted = new Mat())
+                    using (Mat normalizedResult = new Mat())
+                    {
+                        for (int i = 0; i < 3; i++)
+                        {
+                            channels[i].ConvertTo(tempConverted, MatType.CV_32FC1);
+                            Cv2.ScaleAdd(tempConverted, weights[i], i == 0 ? new Mat(source.Size(), MatType.CV_32FC1, Scalar.All(0)) : weightedSum, weightedSum);
+                        }
+
+                        // normalize values across 0-255 range
+                        Cv2.Normalize(weightedSum, normalizedResult, 0, 255, NormTypes.MinMax);
+                        normalizedResult.ConvertTo(normalizedResult, MatType.CV_8UC1);
+
+                        // in-memory conversion to Bitmap 
+                        return BitmapConverter.ToBitmap(normalizedResult);
+                    }
+                }
+                finally
+                {
+                    // disposal
+                    for (int i = 0; i < channels.Length; i++)
+                    {
+                        channels[i]?.Dispose();
+                    }
+                }
+            }
+        }
+
+        private static InvalidOperationException forensicsInvalidOperationException(string message) => new InvalidOperationException(message);
+
     }
 }
