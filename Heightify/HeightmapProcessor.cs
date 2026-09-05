@@ -67,5 +67,74 @@ namespace Heightify
 
             return heightMap;
         }
+
+        public unsafe Bitmap ConvertNormalToHeightMap(Bitmap sourceImage)
+        {
+            if (sourceImage == null)
+            {
+                throw new ArgumentNullException(nameof(sourceImage));
+            }
+
+            int width = sourceImage.Width;
+            int height = sourceImage.Height;
+
+            Bitmap heightMap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+            Rectangle rect = new Rectangle(0, 0, width, height);
+
+            BitmapData srcData = sourceImage.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+            BitmapData dstData = heightMap.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+
+            try
+            {
+                byte* srcScan0 = (byte*)srcData.Scan0.ToPointer();
+                byte* dstScan0 = (byte*)dstData.Scan0.ToPointer();
+
+                int srcStride = srcData.Stride;
+                int dstStride = dstData.Stride;
+
+                for (int y = 0; y < height; y++)
+                {
+                    byte* srcRow = srcScan0 + (y * srcStride);
+                    byte* dstRow = dstScan0 + (y * dstStride);
+
+                    for (int x = 0; x < width; x++)
+                    {
+                        int offset = x * 3;
+
+                        // 24bppRgb buffer: [0]=Blue, [1]=Green, [2]=Red
+                        float b = srcRow[offset];
+                        float g = srcRow[offset + 1];
+                        float r = srcRow[offset + 2];
+
+                        // unpack color components from [0, 255] to vector [-1.0, 1.0]
+                        float nx = (r / 255.0f) * 2.0f - 1.0f;
+                        float ny = (g / 255.0f) * 2.0f - 1.0f;
+                        float nz = (b / 255.0f) * 2.0f - 1.0f;
+
+                        // normalize normal vector
+                        float length = (float)Math.Sqrt(nx * nx + ny * ny + nz * nz);
+                        if (length > 1e-6f)
+                        {
+                            nx /= length;
+                        }
+
+                        // map normalized curvature/height value back to grayscale range [0, 255]
+                        int intensity = (int)((nx + 1.0f) * 127.5f);
+                        byte finalValue = (byte)Math.Max(0, Math.Min(255, intensity));
+
+                        dstRow[offset] = finalValue;
+                        dstRow[offset + 1] = finalValue;
+                        dstRow[offset + 2] = finalValue;
+                    }
+                }
+            }
+            finally
+            {
+                sourceImage.UnlockBits(srcData);
+                heightMap.UnlockBits(dstData);
+            }
+
+            return heightMap;
+        }
     }
 }
