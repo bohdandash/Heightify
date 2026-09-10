@@ -50,17 +50,18 @@ A fast C# desktop utility for heightmap generation, normal reconstruction, and r
    git clone https://github.com/bohdandash/ProjectHeightify.git
 
 ### Preview
-1. Main Screen:
-   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/Main%20Screen.png)
 
-2. Sobel - Gauss Method:
-   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/Sobel-Gauss.png)
+1. **Main Screen:**  
+   ![Heightify Main Screen](./images/Main%20Screen.png)
 
-3. Image - Height Method:
-   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/ImageToHeight.png)
+2. **Sobel–Gauss Filter:**  
+   ![Sobel - Gauss Method](./images/Sobel-Gauss.png)
 
-4. Color - Channel Method:
-   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/RGB.png)
+3. **Image to Height:**  
+   ![Image to Height Method](./images/ImageToHeight.png)
 
-5. Pixel - Intensity Method:
-   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/MathFunc.png)
+4. **Color Channel Extraction:**  
+   ![Color Channel Method](./images/RGB.png)
+
+5. **Pixel Intensity Mapping:**  
+   ![Pixel Intensity Method](./images/MathFunc.png)
