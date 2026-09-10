@@ -43,3 +43,6 @@ A fast C# desktop utility for heightmap generation, normal reconstruction, and r
 1. Clone the repository:
    ```bash
    git clone https://github.com/bohdandash/ProjectHeightify.git
+
+### Preview
+1. Main Screen:
