@@ -1,4 +1,9 @@
 # Heightify
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Language](https://img.shields.io/badge/C%23-.NET%208-informational)
+![Graphics](https://img.shields.io/badge/OpenGL-3.3%20Core-red)
+![Platform](https://img.shields.io/badge/platform-Windows-lightgrey)
+![Status](https://img.shields.io/badge/build-passing-brightgreen)
 
 A fast C# desktop utility for heightmap generation, normal reconstruction, and raster image analysis, built for computer graphics and terrain pipelines.
 
