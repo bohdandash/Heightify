@@ -46,3 +46,16 @@ A fast C# desktop utility for heightmap generation, normal reconstruction, and r
 
 ### Preview
 1. Main Screen:
+   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/Main%20Screen.png)
+
+2. Sobel - Gauss Method:
+   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/Sobel-Gauss.png)
+
+3. Image - Height Method:
+   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/ImageToHeight.png)
+
+4. Color - Channel Method:
+   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/RGB.png)
+
+5. Pixel - Intensity Method:
+   ![image alt](https://github.com/bohdandash/Heightify/blob/30c762a6a10a366b999ecda0dc88ba8ae845682e/images/MathFunc.png)
